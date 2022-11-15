@@ -12,6 +12,19 @@
 # where <light> is the value of the parameter light.
 #
 
+
+def car_at_light(light):
+    if light == 'red':
+        return 'stop'
+    elif light == 'green':
+        return 'go'
+    elif light == 'yellow':
+        return 'wait'
+    else:
+        raise Exception('Undefined instruction for color: {}'.format(light))
+
+
+
 # 2)
 # Create a function named "safe_subtract" that
 # takes two parameters and returns the result of
@@ -19,7 +32,20 @@
 # If the values cannot be subtracted due to its type, 
 # it returns None.
 # If there is any other reason why it fails show the problem 
-# 
+
+
+def safe_subtract(a,b):
+    try:
+        c = a-b
+        return c
+    except TypeError:
+            c = None
+            return c
+    except Exception as err:
+        print(f"Unexpected {err=}, {type(err)=}")
+        raise
+    
+
 
 # 3)
 # Imagine you have a dictionary with the attributes of a person
@@ -30,6 +56,29 @@
 # Name the first function "retrieve_age_eafp" and follow EAFP
 # Name the second function "retrieve_age_lbyl" and follow lbyl
 
+import datetime as dt
+
+def retrieve_age_eafp(person):
+    try:
+        age = dt.datetime.now().year - person['birth']
+        return age
+    except (IndexError, KeyError):
+        print('birth is missing from dictionary')
+    except TypeError:
+        print('birth must be a number')
+    
+
+
+def retrieve_age_lbyl(person):
+    if 'birth' not in person.keys():
+        print('birth is missing from dictionary')
+    elif type(person['birth']) != int:
+        print('birth must be a number')
+    else:
+        age = dt.datetime.now().year - person['birth']
+        return age
+
+
 # 4)
 # Imagine you have a file named data.csv. 
 # Create a function called "read_data" that reads the file
@@ -37,6 +86,15 @@
 # that it might not exist. 
 #
 
+import pandas as pd
+
+def read_data(datafile):
+    try:
+        data = pd.read_csv(datafile)
+        return data
+    except FileNotFoundError:
+        print('File data.csv is not in the working directory')
+    
 
 # 5) Squash some bugs! 
 # Find the possible logical errors (bugs) 
@@ -48,20 +106,30 @@ for elem in [10, 5, 2]:
     double = elem * 2
     total_double_sum += elem
 
+## Error: total_double_sum is in the for loop
+
 ### (b)
 strings = ''
 for string in ['I', 'am', 'Groot']:
     strings = string+"_"+string
+
+## Error: output will be 'I_I'.
 
 ### (c) Careful!
 j=10
 while j > 0:
    j += 1
 
+#j will always be greater than 0, causing an infinite loop. 
+
 ### (d)
 productory = 0
 for elem in [1, 5, 25]:
     productory *= elem
+
+# productory gets replaced
+
+##
 
 
 ################################################
