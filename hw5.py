@@ -130,7 +130,6 @@ strings = ''
 
 for string in ['I', 'am', 'Groot']:
     strings = strings + string+ ' '
-
 print(strings)
 
 ### (c) Careful!
@@ -153,8 +152,8 @@ for elem in [1, 5, 25]:
     productory *= elem
 
 # Error: productory will always be 0
-# my assumption is that productory should be the product of the elements 
-# in the list
+# my assumption is that productory should be the product
+# of the elements in the list
 
 #corrected version of code:
 
