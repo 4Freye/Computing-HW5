@@ -12,6 +12,19 @@
 # where <light> is the value of the parameter light.
 #
 
+
+def car_at_light(light):
+    if light == 'red':
+        return 'stop'
+    elif light == 'green':
+        return 'go'
+    elif light == 'yellow':
+        return 'wait'
+    else:
+        raise Exception('Undefined instruction for color: {}'.format(light))
+
+
+
 # 2)
 # Create a function named "safe_subtract" that
 # takes two parameters and returns the result of
@@ -19,7 +32,19 @@
 # If the values cannot be subtracted due to its type, 
 # it returns None.
 # If there is any other reason why it fails show the problem 
-# 
+
+
+def safe_subtract(a,b):
+    try:
+        c = a-b
+        return c
+    except TypeError:
+            c = None
+            return c
+    except Exception as err:
+        print(f"Unexpected {err}, {type(err)}")
+    
+
 
 # 3)
 # Imagine you have a dictionary with the attributes of a person
@@ -41,6 +66,29 @@ def retrieve_age_lbyl(dic):
     else:
         print("The Dictionary doesn't have Birth key")  
 
+import datetime as dt
+
+def retrieve_age_eafp(person):
+    try:
+        age = dt.datetime.now().year - person['birth']
+        return age
+    except (IndexError, KeyError):
+        print('birth is missing from dictionary')
+    except TypeError:
+        print('birth must be a number')
+    
+
+
+def retrieve_age_lbyl(person):
+    if 'birth' not in person.keys():
+        print('birth is missing from dictionary')
+    elif type(person['birth']) != int:
+        print('birth must be a number')
+    else:
+        age = dt.datetime.now().year - person['birth']
+        return age
+
+
 # 4)
 # Imagine you have a file named data.csv. 
 # Create a function called "read_data" that reads the file
@@ -48,6 +96,15 @@ def retrieve_age_lbyl(dic):
 # that it might not exist. 
 #
 
+import pandas as pd
+
+def read_data(datafile):
+    try:
+        data = pd.read_csv(datafile)
+        return data
+    except FileNotFoundError:
+        print('File data.csv is not in the working directory')
+    
 
 # 5) Squash some bugs! 
 # Find the possible logical errors (bugs) 
@@ -59,20 +116,61 @@ for elem in [10, 5, 2]:
     double = elem * 2
     total_double_sum += elem
 
+
+# Error: the variable double should be used instead of elem 
+# My assumption is that the variable total_double_sum is 
+# the sum of the elements of the list doubled
+
+# Corrected version of code:
+total_double_sum = 0
+for elem in [10, 5, 2]:
+    double = elem * 2
+    total_double_sum += double
+
 ### (b)
 strings = ''
 for string in ['I', 'am', 'Groot']:
     strings = string+"_"+string
+
+# Error: the variable strings gets recreated in every iteration 
+# and the output does not make syntatic sense (e.g. first output of iteration is "I_I")
+
+#Corrected version of code:
+strings = ''
+
+for string in ['I', 'am', 'Groot']:
+    strings = strings + string+ ' '
+print(strings)
 
 ### (c) Careful!
 j=10
 while j > 0:
    j += 1
 
+#Error: j will always be greater than 0, causing an infinite loop.
+
+# corrected version of code:
+j = 0 
+while j < 10:
+    j += 1
+print(j)
+
+
 ### (d)
 productory = 0
 for elem in [1, 5, 25]:
     productory *= elem
+
+# Error: productory will always be 0
+# my assumption is that productory should be the product
+# of the elements in the list
+
+#corrected version of code:
+
+for elem in [1, 5, 25]:
+    elem *= elem
+productory = elem
+print(productory)
 
 
 ################################################
@@ -88,6 +186,9 @@ def count_simba(s):
     return s.upper().count("SIMBA")
 result = reduce(lambda x,y:x+y,map(count_simba,ex))
 
+def count_simba(strings):
+    return sum(map(lambda x: x.count('Simba'), strings))
+
 # 7)
 # Create a function called "get_day_month_year" that takes 
 # a list of datetimes.date and returns a pandas dataframe
@@ -96,6 +197,10 @@ result = reduce(lambda x,y:x+y,map(count_simba,ex))
 # day, month, and year.
 # 
 
+def get_day_month_year(dates):
+    data = list(map(lambda x: [x.day, x.month, x.year], dates))
+    return pd.DataFrame(data, columns = ['day', 'month', 'year'])
+
 # 8) 
 # Create a function called "compute_distance" that takes
 # a list of tuple pairs with latitude and longitude coordinates and 
@@ -103,6 +208,16 @@ result = reduce(lambda x,y:x+y,map(count_simba,ex))
 # example input: [((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))]
 # HINT: You can use geopy.distance in order to compute the distance
 #
+
+from geopy import distance
+from functools import reduce
+
+
+def compute_distance(pairs):
+    distances = []
+    for pair in pairs:
+        distances.append(reduce(lambda x,y: distance.distance(x,y).kilometers, pair))
+    return distances
 
 #################################################
 # 9)
