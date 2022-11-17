@@ -42,8 +42,7 @@ def safe_subtract(a,b):
             c = None
             return c
     except Exception as err:
-        print(f"Unexpected {err=}, {type(err)=}")
-        raise
+        print(f"Unexpected {err}, {type(err)}")
     
 
 
@@ -173,6 +172,9 @@ print(productory)
 #  "Hakuna matata", "Timon, Pumba and Simba are friends, but Simba could eat the other two."] 
 #
 
+def count_simba(strings):
+    return sum(map(lambda x: x.count('Simba'), strings))
+
 # 7)
 # Create a function called "get_day_month_year" that takes 
 # a list of datetimes.date and returns a pandas dataframe
@@ -181,6 +183,10 @@ print(productory)
 # day, month, and year.
 # 
 
+def get_day_month_year(dates):
+    data = list(map(lambda x: [x.day, x.month, x.year], dates))
+    return pd.DataFrame(data, columns = ['day', 'month', 'year'])
+
 # 8) 
 # Create a function called "compute_distance" that takes
 # a list of tuple pairs with latitude and longitude coordinates and 
@@ -188,6 +194,16 @@ print(productory)
 # example input: [((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))]
 # HINT: You can use geopy.distance in order to compute the distance
 #
+
+from geopy import distance
+from functools import reduce
+
+
+def compute_distance(pairs):
+    distances = []
+    for pair in pairs:
+        distances.append(reduce(lambda x,y: distance.distance(x,y).kilometers, pair))
+    return distances
 
 #################################################
 # 9)
