@@ -54,17 +54,6 @@ def safe_subtract(a,b):
 # that handles both examples.
 # Name the first function "retrieve_age_eafp" and follow EAFP
 # Name the second function "retrieve_age_lbyl" and follow lbyl
-def retrieve_age_eafp(dic):
-    try:
-        return dic['birth']
-    except KeyError:
-        print("The Dictionary doesn't have Birth key")
-        
-def retrieve_age_lbyl(dic):
-    if 'birth' in dic:
-        return dic['birth']
-    else:
-        print("The Dictionary doesn't have Birth key")  
 
 import datetime as dt
 
@@ -181,10 +170,8 @@ print(productory)
 # strings. Example: 
 # ["Simba and Nala are lions.", "I laugh in the face of danger.",
 #  "Hakuna matata", "Timon, Pumba and Simba are friends, but Simba could eat the other two."] 
+
 from functools import reduce
-def count_simba(s):
-    return s.upper().count("SIMBA")
-result = reduce(lambda x,y:x+y,map(count_simba,ex))
 
 def count_simba(strings):
     return sum(map(lambda x: x.count('Simba'), strings))
@@ -237,5 +224,3 @@ def sum_general_int_list(_list):
         elif(isinstance(x,list)):
             s+=sum_general_int_list(x)
     return s
-
-
