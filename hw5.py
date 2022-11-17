@@ -106,30 +106,62 @@ for elem in [10, 5, 2]:
     double = elem * 2
     total_double_sum += elem
 
-## Error: total_double_sum is in the for loop
+
+# Error: the variable double should be used instead of elem 
+# My assumption is that the variable total_double_sum is 
+# the sum of the elements of the list doubled
+
+# Corrected version of code:
+total_double_sum = 0
+for elem in [10, 5, 2]:
+    double = elem * 2
+    total_double_sum += double
 
 ### (b)
 strings = ''
 for string in ['I', 'am', 'Groot']:
     strings = string+"_"+string
 
-## Error: output will be 'I_I'.
+# Error: the variable strings gets recreated in every iteration 
+# and the output does not make syntatic sense (e.g. first output of iteration is "I_I")
+
+#Corrected version of code:
+strings = ''
+
+for string in ['I', 'am', 'Groot']:
+    strings = strings + string+ ' '
+
+print(strings)
 
 ### (c) Careful!
 j=10
 while j > 0:
    j += 1
 
-#j will always be greater than 0, causing an infinite loop. 
+#Error: j will always be greater than 0, causing an infinite loop.
+
+# corrected version of code:
+j = 0 
+while j < 10:
+    j += 1
+print(j)
+
 
 ### (d)
 productory = 0
 for elem in [1, 5, 25]:
     productory *= elem
 
-# productory gets replaced
+# Error: productory will always be 0
+# my assumption is that productory should be the product of the elements 
+# in the list
 
-##
+#corrected version of code:
+
+for elem in [1, 5, 25]:
+    elem *= elem
+productory = elem
+print(productory)
 
 
 ################################################
