@@ -29,6 +29,17 @@
 # that handles both examples.
 # Name the first function "retrieve_age_eafp" and follow EAFP
 # Name the second function "retrieve_age_lbyl" and follow lbyl
+def retrieve_age_eafp(dic):
+    try:
+        return dic['birth']
+    except KeyError:
+        print("The Dictionary doesn't have Birth key")
+        
+def retrieve_age_lbyl(dic):
+    if 'birth' in dic:
+        return dic['birth']
+    else:
+        print("The Dictionary doesn't have Birth key")  
 
 # 4)
 # Imagine you have a file named data.csv. 
@@ -72,7 +83,10 @@ for elem in [1, 5, 25]:
 # strings. Example: 
 # ["Simba and Nala are lions.", "I laugh in the face of danger.",
 #  "Hakuna matata", "Timon, Pumba and Simba are friends, but Simba could eat the other two."] 
-#
+from functools import reduce
+def count_simba(s):
+    return s.upper().count("SIMBA")
+result = reduce(lambda x,y:x+y,map(count_simba,ex))
 
 # 7)
 # Create a function called "get_day_month_year" that takes 
@@ -100,6 +114,13 @@ for elem in [1, 5, 25]:
 # and returns the sum of all the integers within the lists
 # for instance for list_1=[[2], 3, [[1,2],5]] 
 # the result should be 13
-#
+def sum_general_int_list(_list):
+    s=0
+    for x in _list: 
+        if(isinstance(x,int)):
+            s+=x
+        elif(isinstance(x,list)):
+            s+=sum_general_int_list(x)
+    return s
 
 
