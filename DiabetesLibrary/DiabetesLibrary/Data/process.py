@@ -6,7 +6,7 @@ import os
 # Load the data.
 
 def read_data():
-    return pd.read_csv('sample_diabetes_mellitus_data.xlsx', on_bad_lines=False)
+    return pd.read_excel('sample_diabetes_mellitus_data.xlsx')
 
 
 #Remove those rows that contain NaN values in the columns: age, gender, ethnicity.
