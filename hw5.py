@@ -23,27 +23,22 @@ def car_at_light(light):
     else:
         raise Exception('Undefined instruction for color: {}'.format(light))
 
-
-
 # 2)
 # Create a function named "safe_subtract" that
 # takes two parameters and returns the result of
 # the second value subtracted from the first.
-# If the values cannot be subtracted due to its type, 
+# If the values cannot be subtracted due to its type,
 # it returns None.
-# If there is any other reason why it fails show the problem 
+# If there is any other reason why it fails show the problem
+#
 
-
-def safe_subtract(a,b):
+def safe_subtract(a, b):
     try:
-        c = a-b
-        return c
+        return a - b
     except TypeError:
-            c = None
-            return c
-    except Exception as err:
-        print(f"Unexpected {err}, {type(err)}")
-    
+        return None
+    except BaseException as err:
+        print(err)
 
 
 # 3)
@@ -55,27 +50,23 @@ def safe_subtract(a,b):
 # Name the first function "retrieve_age_eafp" and follow EAFP
 # Name the second function "retrieve_age_lbyl" and follow lbyl
 
-import datetime as dt
+import datetime
 
-def retrieve_age_eafp(person):
+def retrieve_age_eafp(dictionary):
     try:
-        age = dt.datetime.now().year - person['birth']
-        return age
-    except (IndexError, KeyError):
-        print('birth is missing from dictionary')
-    except TypeError:
-        print('birth must be a number')
-    
+        birth_year = dictionary["birth"]
+    except KeyError:
+        print("Input is missing birth key.")
+        return None
+    return datetime.datetime.now().year - birth_year
 
 
-def retrieve_age_lbyl(person):
-    if 'birth' not in person.keys():
-        print('birth is missing from dictionary')
-    elif type(person['birth']) != int:
-        print('birth must be a number')
+def retrieve_age_lbyl(dictionary):
+    if "birth" in dictionary.keys():
+        return datetime.datetime.now().year - dictionary["birth"]
     else:
-        age = dt.datetime.now().year - person['birth']
-        return age
+        print("Input is missing birth key.")
+        return None
 
 
 # 4)
@@ -87,13 +78,11 @@ def retrieve_age_lbyl(person):
 
 import pandas as pd
 
-def read_data(datafile):
+def read_data(path):
     try:
-        data = pd.read_csv(datafile)
-        return data
+        return pd.read_csv(path)
     except FileNotFoundError:
-        print('File data.csv is not in the working directory')
-    
+        print("File not found.")
 
 # 5) Squash some bugs! 
 # Find the possible logical errors (bugs) 
@@ -117,24 +106,24 @@ for elem in [10, 5, 2]:
     total_double_sum += double
 
 ### (b)
-strings = ''
-for string in ['I', 'am', 'Groot']:
-    strings = string+"_"+string
+#strings = ''
+#for string in ['I', 'am', 'Groot']:
+#    strings = string+"_"+string
 
 # Error: the variable strings gets recreated in every iteration 
 # and the output does not make syntatic sense (e.g. first output of iteration is "I_I")
 
 #Corrected version of code:
-strings = ''
+#strings = ''
 
-for string in ['I', 'am', 'Groot']:
-    strings = strings + string+ ' '
-print(strings)
+#for string in ['I', 'am', 'Groot']:
+#    strings = strings + string+ ' '
+#print(strings)
 
 ### (c) Careful!
-j=10
-while j > 0:
-   j += 1
+#j=10
+#while j > 0:
+#   j += 1
 
 #Error: j will always be greater than 0, causing an infinite loop.
 
