@@ -132,9 +132,9 @@ for string in ['I', 'am', 'Groot']:
 print(strings)
 
 ### (c) Careful!
-j=10
-while j > 0:
-   j += 1
+#j=10
+#while j > 0:
+#   j += 1
 
 #Error: j will always be greater than 0, causing an infinite loop.
 
