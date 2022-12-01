@@ -65,26 +65,30 @@ class TestSafeSubtract(unittest.TestCase):
 import datetime
 
 class TestRetrieveAge(unittest.TestCase):
-    def __init__(self):
+    def setup(self):
         self.dict1 = {'name': 'John', 'last_name': 'Doe', 'birth': 1987}
         self.dict2 = {'name': 'Janet', 'last_name': 'Bird', 'gender': 'female'}
 
     def test_retrieve_age_eafp1(self):
+        TestRetrieveAge.setup(self)
         output = hw5.retrieve_age_eafp(self.dict1)
         expected_output = datetime.datetime.now().year - 1987
         assert output == expected_output
 
     def test_retrieve_age_eafp2(self):
+        TestRetrieveAge.setup(self)
         output = hw5.retrieve_age_eafp(self.dict2)
         expected_output = None
         assert output == expected_output
 
     def test_retrieve_age_lbyl1(self):
+        TestRetrieveAge.setup(self)
         output = hw5.retrieve_age_lbyl(self.dict1)
         expected_output = datetime.datetime.now().year - 1987
         assert output == expected_output
 
     def test_retrieve_age_lbyl2(self):
+        TestRetrieveAge.setup(self)
         output = hw5.retrieve_age_lbyl(self.dict2)
         expected_output = None
         assert output == expected_output
@@ -103,3 +107,95 @@ class TestReadData(unittest.TestCase):
         assert isinstance(output, pd.DataFrame)
 
 
+################################################
+##### Try to use map and reduce in the next 3 exercises
+# 6)
+# Create a function called "count_simba" that counts
+# the number of times that Simba appears in a list of
+# strings. Example: 
+# ["Simba and Nala are lions.", "I laugh in the face of danger.",
+#  "Hakuna matata", "Timon, Pumba and Simba are friends, but Simba could eat the other two."] 
+
+from functools import reduce
+
+def count_simba(strings):
+    return sum(map(lambda x: x.count('Simba'), strings))
+
+def test_count_simba():
+    x = 'Simba'
+    output = count_simba(x)
+    expected_output = 1
+    assert output == expected_output
+
+# 7)
+# Create a function called "get_day_month_year" that takes 
+# a list of datetimes.date and returns a pandas dataframe
+# with 3 columns (day, month, year) in which each of the rows
+# is an element of the input list and has as value its 
+# day, month, and year.
+# 
+
+def get_day_month_year(dates):
+    data = list(map(lambda x: [x.day, x.month, x.year], dates))
+    return pd.DataFrame(data, columns = ['day', 'month', 'year'])
+
+import pandas as pd
+import datetime
+def test_get_day_month_year():
+    x = [datetime.datetime(2022, 11, 28)]
+    output = get_day_month_year(x)
+    data = {'day':  [28],
+            'month': [11],
+             'year': [2022]
+            }
+    expected_output = pd.DataFrame(data)
+    assert output == expected_output
+    
+# 8) 
+# Create a function called "compute_distance" that takes
+# a list of tuple pairs with latitude and longitude coordinates and 
+# returns a list with the distance between the two pairs
+# example input: [((41.23,23.5), (41.5, 23.4)), ((52.38, 20.1),(52.3, 17.8))]
+# HINT: You can use geopy.distance in order to compute the distance
+#
+
+from geopy import distance
+from functools import reduce
+
+
+def compute_distance(pairs):
+    distances = []
+    for pair in pairs:
+        distances.append(reduce(lambda x,y: distance.distance(x,y).kilometers, pair))
+    return distances
+
+def test_compute_distance():
+    x = [((41.23,23.5), (41.5, 23.4))]
+    output = compute_distance(x)
+    expected_output = 31.13186522205169
+    assert output == expected_output
+
+#################################################
+# 9)
+# Consider a list that each element can be an integer or
+# a list that contains integers or more lists with integers
+# example: [[2], 4, 5, [1, [2], [3, 5, [7,8]], 10], 1]. 
+# create a recursive function called "sum_general_int_list"
+# that takes as input this type of list 
+# and returns the sum of all the integers within the lists
+# for instance for list_1=[[2], 3, [[1,2],5]] 
+# the result should be 13
+def sum_general_int_list(_list):
+    s=0
+    for x in _list: 
+        if(isinstance(x,int)):
+            s+=x
+        elif(isinstance(x,list)):
+            s+=sum_general_int_list(x)
+    return s
+
+def test_sum_general_int_list():
+    x = [1,2,3]
+    output = sum_general_int_list(x)
+    expected_output = 6
+    assert output == expected_output
