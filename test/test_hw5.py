@@ -25,6 +25,19 @@ class TestCarAtLight(unittest.TestCase):
         assert output == expected_output
 
     def test_car_at_light2(self):
+        light1 = 'yellow'
+        output = hw5.car_at_light(light1)
+        expected_output = 'wait'
+        assert output == expected_output
+
+    def test_car_at_light3(self):
+        light1 = 'go'
+        output = hw5.car_at_light(light1)
+        expected_output = 'go'
+        assert output == expected_output
+
+
+    def test_car_at_light4(self):
         light1 = 'blue'
         with self.assertRaises(Exception) as context:
             hw5.car_at_light(light1)
@@ -53,6 +66,13 @@ class TestSafeSubtract(unittest.TestCase):
         output = hw5.safe_subtract(a,b)
         expected_output = None
         assert output == expected_output
+
+    def test_safe_subtract3(self):
+        a = None
+        with self.assertRaises(BaseException) as context:
+            hw5.safe_subtract(a, c)
+        self.assertTrue(NameError in context.exception)
+
 
 # 3)
 # Imagine you have a dictionary with the attributes of a person
@@ -101,10 +121,15 @@ class TestRetrieveAge(unittest.TestCase):
 #
 import pandas as pd
 class TestReadData(unittest.TestCase):
-    def test_read_data(self):
+    def test_read_data1(self):
         pathdf = 'sample_diabetes_mellitus_data.csv'
         output = hw5.read_data(pathdf)
         assert isinstance(output, pd.DataFrame)
+
+    def test_read_data1(self):
+        pathdf = 'We like Rogers class'
+        output = hw5.read_data(pathdf)
+        assert output == "File not found."
 
 
 ################################################
