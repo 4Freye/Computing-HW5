@@ -11,8 +11,6 @@
 # "Undefined instruction for color: <light>" 
 # where <light> is the value of the parameter light.
 #
-
-
 def car_at_light(light):
     if light == 'red':
         return 'stop'
@@ -82,7 +80,8 @@ def read_data(path):
     try:
         return pd.read_csv(path)
     except FileNotFoundError:
-        print("File not found.")
+        print('File not found.')
+        return 'File not found.'
 
 # 5) Squash some bugs! 
 # Find the possible logical errors (bugs) 
@@ -131,7 +130,7 @@ for elem in [10, 5, 2]:
 j = 0 
 while j < 10:
     j += 1
-print(j)
+#print(j)
 
 
 ### (d)
@@ -148,7 +147,7 @@ for elem in [1, 5, 25]:
 for elem in [1, 5, 25]:
     elem *= elem
 productory = elem
-print(productory)
+#print(productory)
 
 
 ################################################

@@ -1,7 +1,8 @@
-import pytest
-import sys
 import hw5
 import unittest
+#import os
+#path = os.path.abspath(hw5.__file__)
+
 
 # 1)
 # Create a function called "car_at_light"
@@ -31,7 +32,7 @@ class TestCarAtLight(unittest.TestCase):
         assert output == expected_output
 
     def test_car_at_light3(self):
-        light1 = 'go'
+        light1 = 'green'
         output = hw5.car_at_light(light1)
         expected_output = 'go'
         assert output == expected_output
@@ -41,7 +42,6 @@ class TestCarAtLight(unittest.TestCase):
         light1 = 'blue'
         with self.assertRaises(Exception) as context:
             hw5.car_at_light(light1)
-
         self.assertTrue('Undefined instruction for color: {}'.format(light1) in str(context.exception))
 
 # 2)
@@ -68,10 +68,9 @@ class TestSafeSubtract(unittest.TestCase):
         assert output == expected_output
 
     def test_safe_subtract3(self):
-        a = None
-        with self.assertRaises(BaseException) as context:
-            hw5.safe_subtract(a, c)
-        self.assertTrue(NameError in context.exception)
+        with self.assertRaises(Exception) as context:
+            hw5.safe_subtract(a,b)
+        self.assertTrue('is not defined' in str(context.exception))
 
 
 # 3)
@@ -126,7 +125,7 @@ class TestReadData(unittest.TestCase):
         output = hw5.read_data(pathdf)
         assert isinstance(output, pd.DataFrame)
 
-    def test_read_data1(self):
+    def test_read_data2(self):
         pathdf = 'We like Rogers class'
         output = hw5.read_data(pathdf)
         assert output == "File not found."
