@@ -122,7 +122,7 @@ def count_simba(strings):
     return sum(map(lambda x: x.count('Simba'), strings))
 
 def test_count_simba():
-    x = 'Simba'
+    x = ['Its the circle of life', 'Simba looked for his father Mufasa', 'We like Rogers class :)']
     output = count_simba(x)
     expected_output = 1
     assert output == expected_output
@@ -141,15 +141,16 @@ def get_day_month_year(dates):
 
 import pandas as pd
 import datetime
+
 def test_get_day_month_year():
-    x = [datetime.datetime(2022, 11, 28)]
+    x = [datetime.datetime(2022, 11, 28),datetime.datetime(2022, 12, 1)]
     output = get_day_month_year(x)
-    data = {'day':  [28],
-            'month': [11],
-             'year': [2022]
+    data = {'day':  [28, 1],
+            'month': [11, 12],
+             'year': [2022, 2022]
             }
-    expected_output = pd.DataFrame(data)
-    assert output == expected_output
+    expected_output = pd.DataFrame.from_dict(data)
+    pd.testing.assert_frame_equal(output, expected_output)
     
 # 8) 
 # Create a function called "compute_distance" that takes
@@ -172,7 +173,7 @@ def compute_distance(pairs):
 def test_compute_distance():
     x = [((41.23,23.5), (41.5, 23.4))]
     output = compute_distance(x)
-    expected_output = 31.13186522205169
+    expected_output = [31.131865222052042]
     assert output == expected_output
 
 #################################################
