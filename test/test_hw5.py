@@ -197,7 +197,7 @@ def compute_distance(pairs):
 def test_compute_distance():
     x = [((41.23,23.5), (41.5, 23.4))]
     output = compute_distance(x)
-    expected_output = [31.131865222052042]
+    expected_output = [31.13186522205169]
     assert output == expected_output
 
 #################################################
