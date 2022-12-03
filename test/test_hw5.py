@@ -1,7 +1,5 @@
 import hw5
 import unittest
-#import os
-#path = os.path.abspath(hw5.__file__)
 
 
 # 1)
@@ -142,12 +140,10 @@ class TestReadData(unittest.TestCase):
 
 from functools import reduce
 
-def count_simba(strings):
-    return sum(map(lambda x: x.count('Simba'), strings))
 
 def test_count_simba():
     x = ['Its the circle of life', 'Simba looked for his father Mufasa', 'We like Rogers class :)']
-    output = count_simba(x)
+    output = hw5.count_simba(x)
     expected_output = 1
     assert output == expected_output
 
@@ -159,16 +155,13 @@ def test_count_simba():
 # day, month, and year.
 # 
 
-def get_day_month_year(dates):
-    data = list(map(lambda x: [x.day, x.month, x.year], dates))
-    return pd.DataFrame(data, columns = ['day', 'month', 'year'])
 
 import pandas as pd
 import datetime
 
 def test_get_day_month_year():
     x = [datetime.datetime(2022, 11, 28),datetime.datetime(2022, 12, 1)]
-    output = get_day_month_year(x)
+    output = hw5.get_day_month_year(x)
     data = {'day':  [28, 1],
             'month': [11, 12],
              'year': [2022, 2022]
@@ -188,16 +181,10 @@ from geopy import distance
 from functools import reduce
 
 
-def compute_distance(pairs):
-    distances = []
-    for pair in pairs:
-        distances.append(reduce(lambda x,y: distance.distance(x,y).kilometers, pair))
-    return distances
-
 def test_compute_distance():
     x = [((41.23,23.5), (41.5, 23.4))]
-    output = compute_distance(x)
-    expected_output = [31.13186522205169]
+    output = hw5.compute_distance(x)
+    expected_output = [31.132]
     assert output == expected_output
 
 #################################################
@@ -210,17 +197,9 @@ def test_compute_distance():
 # and returns the sum of all the integers within the lists
 # for instance for list_1=[[2], 3, [[1,2],5]] 
 # the result should be 13
-def sum_general_int_list(_list):
-    s=0
-    for x in _list: 
-        if(isinstance(x,int)):
-            s+=x
-        elif(isinstance(x,list)):
-            s+=sum_general_int_list(x)
-    return s
 
 def test_sum_general_int_list():
     x = [1,2,3]
-    output = sum_general_int_list(x)
+    output = hw5.sum_general_int_list(x)
     expected_output = 6
     assert output == expected_output
