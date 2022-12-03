@@ -191,7 +191,7 @@ from functools import reduce
 def compute_distance(pairs):
     distances = []
     for pair in pairs:
-        distances.append(reduce(lambda x,y: distance.distance(x,y).kilometers, pair))
+        distances.append(reduce(lambda x,y: round(distance.distance(x,y).kilometers,3), pair))
     return distances
 
 #################################################
